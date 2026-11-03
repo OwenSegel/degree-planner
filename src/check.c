@@ -23,7 +23,7 @@ int check_prereqs(const semester_t semester[], int num_semesters) {
       for (int z = 0; z < semester[i].course_list[x]->num_prereqs; z++) {
         if (!contains_class(semester, semester[i].course_list[x]->prerequisite[z], i)) {
           if (sem_err == 0) {
-            printf("Semester #%d\n", x + 1);
+            printf("Semester #%d:\n", x + 1);
             sem_err = 1;
           }
           if (errors == 0) {
@@ -66,4 +66,12 @@ int check_credits(const semester_t semester[], int num_semesters) {
 
 void print_report(const semester_t semester[], int num_semesters) {
 
+  printf("\nREPORT:\n\n");
+
+  int prereq_errs = check_prereqs(semester, num_semesters);
+  int credit_errs = check_credits(semester, num_semesters);
+
+  if ((prereq_errs == 0) && (credit_errs == 0)) {
+    printf("NO ERRORS! VALID SCHEDULE\n\n");
+  }
 }
