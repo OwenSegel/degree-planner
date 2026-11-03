@@ -29,5 +29,6 @@ int main(int argc, char **argv) {
 
   link_prereqs(courses, num_courses);
 
+  check_prereqs(plan, num_semesters);
   // print_report(plan, num_semesters);
 }
