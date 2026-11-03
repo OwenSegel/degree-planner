@@ -16,6 +16,17 @@ course_t *find_course(course_t course_list[], int num_courses, const char *name)
 }
 
 int link_prereqs(course_t course_list[], int num_courses) {
+
+  for (int i = 0; i < num_courses; i++) {
+    for (int x = 0; x < course_list[i].num_prereqs; x++) {
+      course_t *course = find_course(course_list, num_courses, course_list[i].prerequisite_name[x]);
+      if (course == NULL) {
+        return LINK_ERR;
+      }
+      course_list[i].prerequisite[x] = course;
+    }
+  }
+
   return OK;
 }
 

@@ -22,21 +22,12 @@ int main(int argc, char **argv) {
   read_courses(course_file, courses, num_courses);
   read_plan(plan_file, courses, num_courses, plan, num_semesters);
 
-  for (int i = 0; i < num_semesters; i++) {
-
-    printf("\nSemester #%d:\n\n", i + 1);
-    for (int x = 0; x < plan[i].num_courses; x++) {
-      print_course(*plan[i].course_list[x]);
-      printf("\n");
-    }
-  }
-
   fclose(course_file);
   fclose(plan_file);
   course_file = NULL;
   plan_file = NULL;
 
-  // link_prereqs(courses, num_courses);
+  link_prereqs(courses, num_courses);
 
   // print_report(plan, num_semesters);
 }
