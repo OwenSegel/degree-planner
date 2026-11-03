@@ -5,7 +5,14 @@
 #include <stdio.h>
 
 course_t *find_course(course_t course_list[], int num_courses, const char *name) {
-  return &course_list[0];
+
+  for (int i = 0; i < num_courses; i++) {
+    if (strncmp(course_list[i].name, name, MAX_NAME_LEN) == 0) {
+      return &course_list[i];
+    }
+  }
+
+  return NULL;
 }
 
 int link_prereqs(course_t course_list[], int num_courses) {

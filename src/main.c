@@ -12,25 +12,29 @@ int main(int argc, char **argv) {
   }
 
   FILE *course_file = fopen(argv[1], "r");
-  // FILE *plan_file = fopen(argv[2], "r");
+  FILE *plan_file = fopen(argv[2], "r");
 
   int num_courses   = count_courses(course_file);
-  // int num_semesters = count_semesters(plan_file);
+  int num_semesters = count_semesters(plan_file);
   course_t courses[num_courses] = {};
-  // semester_t plan[num_semesters] = {};
+  semester_t plan[num_semesters] = {};
 
   read_courses(course_file, courses, num_courses);
+  read_plan(plan_file, courses, num_courses, plan, num_semesters);
 
-  for (int i = 0; i < num_courses; i++) {
-    printf("\n");
-    print_course(courses[i]);
+  for (int i = 0; i < num_semesters; i++) {
+
+    printf("\nSemester #%d:\n\n", i + 1);
+    for (int x = 0; x < plan[i].num_courses; x++) {
+      print_course(*plan[i].course_list[x]);
+      printf("\n");
+    }
   }
-  // read_plan(plan_file, courses, num_courses, plan, num_semesters);
 
-  // fclose(course_file);
-  // fclose(plan_file);
-  // course_file = NULL;
-  // plan_file = NULL;
+  fclose(course_file);
+  fclose(plan_file);
+  course_file = NULL;
+  plan_file = NULL;
 
   // link_prereqs(courses, num_courses);
 

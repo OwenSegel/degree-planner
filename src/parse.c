@@ -65,5 +65,32 @@ int read_courses(FILE *fp, course_t courses[], int num_courses) {
 
 // course_name1/course_name_2/.../course_nameN|
 int read_plan(FILE *fp, course_t courses[], int num_courses, semester_t semesters[], int num_semesters) {
+  
+  char name[MAX_NAME_LEN] = "";
+  
+  for (int i = 0; i < num_semesters; i++) {
+    int count = 0;
+    
+    while (1) {
+      if (count == MAX_CLASSES) {
+        return BAD_RECORD;
+      }
+      if (fscanf(fp, "%31[^/|]", name) != 1) return BAD_RECORD;
+      semesters[i].course_list[count] = find_course(courses, num_courses, name);
+      if (semesters[i].course_list[count] == NULL) {
+        return LINK_ERR;
+      }
+      count++;
+      int c = fgetc(fp);
+      if (c == '|') break;
+     if (c != '/') return BAD_RECORD;
+    }
+    semesters[i].num_courses = count;
+
+    if (fgetc(fp) != '\n') {
+      return BAD_RECORD;
+    }
+  }
+
   return OK;
 }
