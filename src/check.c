@@ -43,7 +43,25 @@ int check_prereqs(const semester_t semester[], int num_semesters) {
 }
 
 int check_credits(const semester_t semester[], int num_semesters) {
-	return 0;
+
+  int errors = 0;
+
+  for (int i = 0; i < num_semesters; i++) {
+    int credits = 0;
+    for (int x = 0; x < semester[i].num_courses; x++) {
+      credits += semester[i].course_list[x]->credits;
+    }
+    if (credits > MAX_CREDITS) {
+      if (errors == 0) {
+        printf("Credit Errors:\n");
+      }
+      printf("Semester #%d: CREDIT LIMIT EXCEEDED. FOUND %d CREDITS\n", i + 1, credits);
+      errors++;
+    }
+  }
+  if (errors != 0) printf("\n");
+
+  return errors;
 }
 
 void print_report(const semester_t semester[], int num_semesters) {
