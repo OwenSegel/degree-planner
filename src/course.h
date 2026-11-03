@@ -1,6 +1,8 @@
 #ifndef COURSE_H
 #define COURSE_H
 
+#define LINK_ERR (-1)
+
 #define MAX_NAME_LEN (64)
 #define MAX_PREREQS (5)
 #define MAX_CLASSES (10)

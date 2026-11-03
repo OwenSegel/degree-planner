@@ -1,20 +1,25 @@
 #include "course.h"
+#include "parse.h"
+
+#include <string.h>
+#include <stdio.h>
 
 course_t *find_course(course_t course_list[], int num_courses, const char *name) {
-	return &course_list[0];
+  return &course_list[0];
 }
 
 int link_prereqs(course_t course_list[], int num_courses) {
-	return 0;
+  return OK;
 }
 
 void print_course(const course_t course) {
-  printf("%s: %d Credits\nPrerequisites:\n", course.name, course.credits);
 
-  for (int i = 0; i < MAX_PREREQS; i++) {
-    if (course.prerequisite[i] != NULL) {
-      printf("%d. %s\n", i + 1, course.prerequisite[i]->name);
-    }
-    else break;
+  printf("%s: %d Credits\n", course.name, course.credits);
+
+  if (course.num_prereqs != 0) {
+    printf("Prerequisites:\n");
+  }
+  for (int i = 0; i < course.num_prereqs; i++) {
+    printf("%d. %s\n", i + 1, course.prerequisite_name[i]);
   }
 }

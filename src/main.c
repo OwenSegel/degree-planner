@@ -11,15 +11,20 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  // FILE *course_file = fopen(argv[1], "r");
+  FILE *course_file = fopen(argv[1], "r");
   // FILE *plan_file = fopen(argv[2], "r");
 
-  // int num_courses   = count_courses(course_file);
+  int num_courses   = count_courses(course_file);
   // int num_semesters = count_semesters(plan_file);
-  // course_t courses[num_courses] = {};
+  course_t courses[num_courses] = {};
   // semester_t plan[num_semesters] = {};
 
-  // read_courses(course_file, courses, num_courses);
+  read_courses(course_file, courses, num_courses);
+
+  for (int i = 0; i < num_courses; i++) {
+    printf("\n");
+    print_course(courses[i]);
+  }
   // read_plan(plan_file, courses, num_courses, plan, num_semesters);
 
   // fclose(course_file);
